@@ -2,13 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MenuScript : MonoBehaviour {
+public class menuScript_ : MonoBehaviour {
 
     public Canvas QuitMenu;
     public Button startText;
     public Button exitText;
 
-	// Use this for initialization
 	void Start () {
         QuitMenu = QuitMenu.GetComponent<Canvas>();
         startText = startText.GetComponent<Button>();

@@ -22,7 +22,7 @@ public class launcherScript : MonoBehaviour {
 
     public void applyForce(Rigidbody ball) {
         if (_launching) {
-            ball.AddForce(0, 0, (-1000/50)*_launchPower);
+            ball.AddForce(0, 0, (-1200/50)*_launchPower);
         }
     }
 
