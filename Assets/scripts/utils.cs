@@ -4,9 +4,11 @@ using System.Collections;
 public class utils : MonoBehaviour {
 
     private lifeManager _lifeMan;
+    //private scoreManager _scoreMan;
 
     void Start() {
         _lifeMan = GameObject.Find("lifeManager").GetComponent<lifeManager>();
+        //_scoreMan = GameObject.Find("scoreManager").GetComponent<scoreManager>();
     }
 
     public Vector3 returnPos(Vector3 Old, float x, float y, float z) {
@@ -14,7 +16,7 @@ public class utils : MonoBehaviour {
     }
 
     public void modScore(int i = 0) {
-
+        //_scoreMan.addScore(i);
     }
 
     public int getLives() {

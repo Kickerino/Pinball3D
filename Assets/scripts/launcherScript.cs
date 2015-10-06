@@ -13,7 +13,7 @@ public class launcherScript : MonoBehaviour {
     private int          _launchPower;
 
     void Start() {
-        _utils = new utils();
+        _utils = gameObject.AddComponent<utils>();
         _tf = GetComponent<Transform>();
         _forceTrigger = _tf.Find("launcherTrigger").gameObject;
         _posA = _tf.position;

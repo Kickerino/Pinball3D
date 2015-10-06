@@ -8,30 +8,31 @@ public class keyboardInput : MonoBehaviour {
     public GameObject launcher;
 
     private launcherScript _launcher;
+    private flipper _leftFlipper;
+    private flipper _rightFlipper;
 
     void Start() {
         _launcher = launcher.GetComponent<launcherScript>();
+        _leftFlipper = leftFlipper.GetComponent<flipper>();
+        _rightFlipper = rightFlipper.GetComponent<flipper>();
+
     }
 
 	void Update () {
         if (Input.GetButtonDown("Fire1")) {
-            //leftFlipper.on()
-            print("leftFlipper.on()");
+            _leftFlipper.on();
         }
         if (Input.GetButtonDown("Fire2")) {
-            //rightFlipper.on()
-            print("rightFlipper.on()");
+            _rightFlipper.on();
         }
         if (Input.GetButtonDown("Fire3")) {
             _launcher.on();
         }
         if (Input.GetButtonUp("Fire1")) {
-            //leftFlipper.off()
-            print("leftFlipper.off()");
+            _leftFlipper.off();
         }
         if (Input.GetButtonUp("Fire2")) {
-            //rightFlipper.off()
-            print("rightFlipper.off()");
+            _rightFlipper.off();
         }
         if (Input.GetButtonUp("Fire3")) {
             _launcher.off();

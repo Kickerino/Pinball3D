@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpecialEvent : MonoBehaviour {
+public class specialEvent : MonoBehaviour {
 
-    public string specialEvent;
+    public string SpecialEvent;
     [Header("for the 'launchBall' event:")]
     [Header("Vector3 below is used")]
     public Vector3 launchTo;
@@ -12,10 +12,11 @@ public class SpecialEvent : MonoBehaviour {
     public GameObject ball;
     public GameObject respawn;
     public GameObject extraSpawn;
+    public int scoreAdd = 0;
 
     private int _sE;
     private utils _utils;
-    private Gate _gate;
+    private gate _gate;
     private Transform _respawn;
     private Transform _extraSpawn;
 
@@ -23,7 +24,7 @@ public class SpecialEvent : MonoBehaviour {
         _respawn = respawn.GetComponent<Transform>();
         _extraSpawn = extraSpawn.GetComponent<Transform>();
         _utils = GameObject.Find("utils").GetComponent<utils>();
-        switch (specialEvent) {
+        switch (SpecialEvent) {
             case "loseLife":
                 _sE = 0;
                 break;
@@ -49,13 +50,18 @@ public class SpecialEvent : MonoBehaviour {
                 break;
 
             case "gate":
-                _gate = gate.GetComponent<Gate>();
+                _gate = gate.GetComponent<gate>();
                 _sE = 6;
+                break;
+
+            case "overrideGate":
+                _gate = gate.GetComponent<gate>();
+                _sE = 7;
                 break;
 
             default:
                 _sE = -1;
-                print("An invalid event was given! (" + specialEvent + ")");
+                print("An invalid event was given! (" + SpecialEvent + ")");
                 break;
         }
 	}
@@ -69,7 +75,11 @@ public class SpecialEvent : MonoBehaviour {
         switch (_sE) {
             case 0:
                 _utils.modLife(-1);
-                createBall(_respawn);
+                if (_utils.getLives() > 0) {
+                    other.GetComponent<Transform>().transform.position = _respawn.position;
+                } else {
+                    //gameOver();
+                }
                 break;
 
             case 1:
@@ -83,12 +93,12 @@ public class SpecialEvent : MonoBehaviour {
                 }
                 break;
 
-            case 3: 
+            case 3:
                 createBall(_extraSpawn);
                 break;
 
             case 4:
-                //addScore();
+                _utils.modScore(scoreAdd);
                 break;
 
             case 5:
@@ -97,6 +107,10 @@ public class SpecialEvent : MonoBehaviour {
 
             case 6:
                 _gate.toggle();
+                break;
+
+            case 7:
+                _gate.Override();
                 break;
 
             default:
