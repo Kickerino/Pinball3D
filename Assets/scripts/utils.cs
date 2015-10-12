@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Globalization;
 
 public class utils : MonoBehaviour {
 
@@ -17,6 +18,11 @@ public class utils : MonoBehaviour {
 
     public void modScore(int i = 0) {
         //_scoreMan.addScore(i);
+    }
+
+    public string neatNumber(int i) {
+        if (i > 999999999) { print("THIS GUY IS INCREDIBLE!!!!"); }
+        return i.ToString("000,000,000", CultureInfo.InvariantCulture).Replace(',', '.');
     }
 
     public int getLives() {
