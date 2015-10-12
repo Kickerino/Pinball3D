@@ -3,29 +3,30 @@ using System.Collections;
 
 public class specialEvent : MonoBehaviour {
 
-    public string SpecialEvent;
+    public string       SpecialEvent;
     [Header("for the 'launchBall' event:")]
     [Header("Vector3 below is used")]
-    public Vector3 launchTo;
+    public Vector3      launchTo;
     [Header("For 'gate' event:")]
-    public GameObject gate;
-    public GameObject ball;
-    public GameObject respawn;
-    public GameObject extraSpawn;
-    public int scoreAdd = 0;
+    public GameObject   gate;
+    public GameObject   ball;
+    public GameObject   respawn;
+    public GameObject   extraSpawn;
+    public GameObject   teleport;
+    public int          scoreAdd = 0;
 
-    private int _sE;
-    private utils _utils;
-    private gate _gate;
-    private Transform _respawn;
-    private Transform _extraSpawn;
+    private int         _sE;
+    private utils       _utils;
+    private gate        _gate;
+    private Transform   _respawn;
+    private Transform   _extraSpawn;
+    private Transform   _moveTo;
 
 	void Start () {
-        _respawn = respawn.GetComponent<Transform>();
-        _extraSpawn = extraSpawn.GetComponent<Transform>();
         _utils = GameObject.Find("utils").GetComponent<utils>();
         switch (SpecialEvent) {
             case "loseLife":
+                _respawn = respawn.GetComponent<Transform>();
                 _sE = 0;
                 break;
 
@@ -34,6 +35,7 @@ public class specialEvent : MonoBehaviour {
                 break;
 
             case "lifeBalls":
+                _extraSpawn = extraSpawn.GetComponent<Transform>();
                 _sE = 2;
                 break;
 
@@ -57,6 +59,11 @@ public class specialEvent : MonoBehaviour {
             case "overrideGate":
                 _gate = gate.GetComponent<gate>();
                 _sE = 7;
+                break;
+
+            case "teleport":
+                _moveTo = teleport.GetComponent<Transform>();
+                _sE = 8;
                 break;
 
             default:
@@ -113,8 +120,14 @@ public class specialEvent : MonoBehaviour {
                 _gate.Override();
                 break;
 
+            case 8:
+                other.GetComponent<Transform>().position = _moveTo.position;
+                other.GetComponent<Rigidbody>().Sleep();
+                other.GetComponent<Rigidbody>().AddForce(launchTo);
+                break;
+
             default:
-                print("Invalid event Id!");
+                print("Attempt to trigger invalid event id!");
                 break;
         }
     }

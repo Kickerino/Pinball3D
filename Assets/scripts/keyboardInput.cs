@@ -3,13 +3,13 @@ using System.Collections;
 
 public class keyboardInput : MonoBehaviour {
 
-    public GameObject leftFlipper;
-    public GameObject rightFlipper;
-    public GameObject launcher;
+    public GameObject           leftFlipper;
+    public GameObject           rightFlipper;
+    public GameObject           launcher;
 
-    private launcherScript _launcher;
-    private flipper _leftFlipper;
-    private flipper _rightFlipper;
+    private launcherScript      _launcher;
+    private flipper             _leftFlipper;
+    private flipper             _rightFlipper;
 
     void Start() {
         _launcher = launcher.GetComponent<launcherScript>();

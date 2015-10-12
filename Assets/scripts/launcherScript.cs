@@ -8,14 +8,14 @@ public class launcherScript : MonoBehaviour {
     private Transform    _tf;
     private Vector3      _posA;
     private Vector3      _posB;
-    private GameObject   _forceTrigger;
+    //private GameObject   _forceTrigger;
     private utils        _utils;
     private int          _launchPower;
 
     void Start() {
         _utils = gameObject.AddComponent<utils>();
         _tf = GetComponent<Transform>();
-        _forceTrigger = _tf.Find("launcherTrigger").gameObject;
+        //_forceTrigger = _tf.Find("launcherTrigger").gameObject;
         _posA = _tf.position;
         _posB = _utils.returnPos(_posA,0,0,1);
     }
