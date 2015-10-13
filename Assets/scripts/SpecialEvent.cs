@@ -16,14 +16,12 @@ public class specialEvent : MonoBehaviour {
     public int          scoreAdd = 0;
 
     private int         _sE;
-    private utils       _utils;
     private gate        _gate;
     private Transform   _respawn;
     private Transform   _extraSpawn;
     private Transform   _moveTo;
 
 	void Start () {
-        _utils = GameObject.Find("utils").GetComponent<utils>();
         switch (SpecialEvent) {
             case "loseLife":
                 _respawn = respawn.GetComponent<Transform>();
@@ -81,8 +79,8 @@ public class specialEvent : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         switch (_sE) {
             case 0:
-                _utils.modLife(-1);
-                if (_utils.getLives() > 0) {
+                utils.modLife(-1);
+                if (utils.getLives() > 0) {
                     other.GetComponent<Transform>().transform.position = _respawn.position;
                 } else {
                     //gameOver();
@@ -90,11 +88,11 @@ public class specialEvent : MonoBehaviour {
                 break;
 
             case 1:
-                _utils.modLife(1);
+                utils.modLife(1);
                 break;
 
             case 2:
-                for (int i = 0; i < _utils.getLives(); i++) {
+                for (int i = 0; i < utils.getLives(); i++) {
                     GameObject newBall = createBall(_extraSpawn);
                     newBall.GetComponent<Rigidbody>().AddForce(0,0,-10);
                 }
@@ -105,7 +103,7 @@ public class specialEvent : MonoBehaviour {
                 break;
 
             case 4:
-                _utils.modScore(scoreAdd);
+                utils.modScore(scoreAdd);
                 break;
 
             case 5:
