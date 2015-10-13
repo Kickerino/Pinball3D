@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class score : MonoBehaviour
 {
-    private int _score = 42069360;
+    private int _score = 69420360;
     public Text text;
     // Use this for initialization
 
