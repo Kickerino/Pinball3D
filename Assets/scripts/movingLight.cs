@@ -18,10 +18,10 @@ public class movingLight : MonoBehaviour {
         float negate;
         if (_goingLeft) {
             negate = -0.08f;
-            _tf.position = utils.returnPos(_tf.position,0, 0, negate);
+            _tf.position = utils.changePos(_tf.position,0, 0, negate);
         } else {
             negate = 0.08f;
-            _tf.position = utils.returnPos(_tf.position,0, 0, negate);
+            _tf.position = utils.changePos(_tf.position,0, 0, negate);
         }
         if (_tf.position.z > _posB.z) {
             _goingLeft = true;

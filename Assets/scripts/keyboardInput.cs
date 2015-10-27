@@ -10,6 +10,7 @@ public class keyboardInput : MonoBehaviour {
     private launcherScript      _launcher;
     private flipper             _leftFlipper;
     private flipper             _rightFlipper;
+    private bool                _tooTilted;
 
     void Start() {
         _launcher = launcher.GetComponent<launcherScript>();
@@ -19,23 +20,39 @@ public class keyboardInput : MonoBehaviour {
     }
 
 	void Update () {
-        if (Input.GetButtonDown("Fire1")) {
-            _leftFlipper.on();
-        }
-        if (Input.GetButtonDown("Fire2")) {
-            _rightFlipper.on();
-        }
-        if (Input.GetButtonDown("Fire3")) {
-            _launcher.on();
-        }
-        if (Input.GetButtonUp("Fire1")) {
-            _leftFlipper.off();
-        }
-        if (Input.GetButtonUp("Fire2")) {
-            _rightFlipper.off();
-        }
-        if (Input.GetButtonUp("Fire3")) {
-            _launcher.off();
+        if (!_tooTilted) {
+            if (Input.GetButtonDown("Fire1")) {
+                _leftFlipper.on();
+            }
+            if (Input.GetButtonDown("Fire2")) {
+                _rightFlipper.on();
+            }
+            if (Input.GetButtonDown("Fire3")) {
+                _launcher.on();
+            }
+            if (Input.GetButtonUp("Fire1")) {
+                _leftFlipper.off();
+            }
+            if (Input.GetButtonUp("Fire2")) {
+                _rightFlipper.off();
+            }
+            if (Input.GetButtonUp("Fire3")) {
+                _launcher.off();
+            }
+            if (Input.GetButtonDown("TiltLeft")) {
+                if (Random.Range(1, 100) < 75) {
+
+                } else {
+                    _tooTilted = true;
+                }
+            }
+            if (Input.GetButtonDown("TiltRight")) {
+                if (Random.Range(1, 100) < 75) {
+
+                } else {
+                    _tooTilted = true;
+                }
+            }
         }
 	}
 }

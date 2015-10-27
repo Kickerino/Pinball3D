@@ -15,7 +15,7 @@ public class launcherScript : MonoBehaviour {
         _tf = GetComponent<Transform>();
         //_forceTrigger = _tf.Find("launcherTrigger").gameObject;
         _posA = _tf.position;
-        _posB = utils.returnPos(_posA,0,0,1);
+        _posB = utils.changePos(_posA,0,0,1);
     }
 
     public void applyForce(Rigidbody ball) {
@@ -27,7 +27,7 @@ public class launcherScript : MonoBehaviour {
     void Update() {
         if (_on) {
             if(_tf.position.z < _posB.z) {
-                _tf.position = utils.returnPos(_tf.position, 0, 0, 0.02f);
+                _tf.position = utils.changePos(_tf.position, 0, 0, 0.02f);
                 _launchPower++;
             } else {
                 _tf.position = _posB;
@@ -35,7 +35,7 @@ public class launcherScript : MonoBehaviour {
         }
         else {
             if (_tf.position.z > _posA.z) {
-                _tf.position = utils.returnPos(_tf.position, 0, 0, -0.4f);
+                _tf.position = utils.changePos(_tf.position, 0, 0, -0.4f);
                 _launching = true;
             }
             else {

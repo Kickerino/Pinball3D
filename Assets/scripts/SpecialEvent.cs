@@ -9,10 +9,12 @@ public class specialEvent : MonoBehaviour {
     public Vector3      launchTo;
     [Header("For 'gate' event:")]
     public GameObject   gate;
+    public bool         overrideOpens;
     public GameObject   ball;
     public GameObject   respawn;
     public GameObject   extraSpawn;
     public GameObject   teleport;
+    public float        gateDelay = 0;
     public int          scoreAdd = 0;
 
     private int         _sE;
@@ -21,7 +23,7 @@ public class specialEvent : MonoBehaviour {
     private Transform   _extraSpawn;
     private Transform   _moveTo;
 
-	void Start () {
+    void Start() {
         switch (SpecialEvent) {
             case "loseLife":
                 _respawn = respawn.GetComponent<Transform>();
@@ -69,9 +71,9 @@ public class specialEvent : MonoBehaviour {
                 print("An invalid event was given! (" + SpecialEvent + ")");
                 break;
         }
-	}
+    }
 
-    public GameObject createBall(Transform s) {
+    private GameObject _createBall(Transform s) {
         GameObject newBall = (GameObject)Instantiate(ball, s.position, s.rotation);
         return newBall;
     }
@@ -79,11 +81,17 @@ public class specialEvent : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         switch (_sE) {
             case 0:
-                utils.modLife(-1);
-                if (utils.getLives() > 0) {
-                    other.GetComponent<Transform>().transform.position = _respawn.position;
+                GameObject[] balls = GameObject.FindGameObjectsWithTag("ball");
+                if (balls.Length >= 2) {
+                    //print("destroyed");
+                    Destroy(other.gameObject);
+                } else if (utils.getLives() > 1) {
+                    utils.modLife(-1);
+                    //print("moved");
+                    other.GetComponent<Transform>().position = _respawn.position;
                 } else {
                     //gameOver();
+                    print("gameOver");
                 }
                 break;
 
@@ -93,13 +101,13 @@ public class specialEvent : MonoBehaviour {
 
             case 2:
                 for (int i = 0; i < utils.getLives(); i++) {
-                    GameObject newBall = createBall(_extraSpawn);
+                    GameObject newBall = _createBall(_extraSpawn);
                     newBall.GetComponent<Rigidbody>().AddForce(0,0,-10);
                 }
                 break;
 
             case 3:
-                createBall(_extraSpawn);
+                _createBall(_extraSpawn);
                 break;
 
             case 4:
@@ -111,11 +119,15 @@ public class specialEvent : MonoBehaviour {
                 break;
 
             case 6:
-                _gate.toggle();
+                _gate.toggle(gateDelay);
                 break;
 
             case 7:
-                _gate.Override();
+                if (overrideOpens) {
+                    _gate.Override("open", gateDelay);
+                } else {
+                    _gate.Override("toggle", gateDelay);
+                }
                 break;
 
             case 8:
